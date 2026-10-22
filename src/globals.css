@@ -1,0 +1,118 @@
+@import "tailwindcss";
+
+@font-face {
+  font-family: "Idiqlat";
+  src: url("./assets/fonts/Idiqlat/Idiqlat-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Rawline";
+  src: url("./assets/fonts/Rawline/rawline-400.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Rawline";
+  src: url("./assets/fonts/Rawline/rawline-600.ttf") format("truetype");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Rawline";
+  src: url("./assets/fonts/Rawline/rawline-700.ttf") format("truetype");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@theme {
+  --color-bege-lt: #fdfcf7;
+  --color-bege: #fbf5de;
+  --color-bege-dk: #f5e6ac;
+  --color-azul: #3d74b6;
+  --color-azul-dk: #164d80;
+  --color-verde: #239ba7;
+  --color-amarelo: #ffcb61;
+  --color-selected-ink: #052536;
+  --font-heading: "Idiqlat", Georgia, serif;
+  --font-sans: "Rawline", system-ui, sans-serif;
+  --text-heading-1: clamp(2rem, 5vw, 3rem);
+  --text-heading-2: clamp(1.75rem, 4vw, 2.5rem);
+  --text-heading-3: clamp(1.5rem, 3vw, 2rem);
+  --text-heading-4: clamp(1.25rem, 2.5vw, 1.5rem);
+  --text-story-heading: 3.625rem;
+  --spacing-page-gutter: clamp(.75rem, 4vw, 3rem);
+  --spacing-board-gap: clamp(.5rem, 2vw, 1.125rem);
+  --spacing-story-width: 1080px;
+  --spacing-story-height: 1920px;
+  --spacing-story-safe: 250px;
+  --container-bingo: 47.5rem;
+  --container-page: 67.5rem;
+}
+
+/* Aliases semânticos dependem do ancestral data-theme, sem duplicar a paleta. */
+@theme inline {
+  --color-surface: var(--surface);
+  --color-ink: var(--ink);
+  --color-title: var(--title);
+  --color-focus: var(--focus);
+}
+
+@utility h1 {
+  font-family: var(--font-heading);
+  font-size: var(--text-heading-1);
+  font-weight: 700;
+  line-height: 1.12;
+}
+@utility h2 {
+  font-family: var(--font-heading);
+  font-size: var(--text-heading-2);
+  font-weight: 700;
+  line-height: 1.15;
+}
+@utility h3 {
+  font-family: var(--font-heading);
+  font-size: var(--text-heading-3);
+  font-weight: 700;
+  line-height: 1.2;
+}
+@utility h4 {
+  font-family: var(--font-heading);
+  font-size: var(--text-heading-4);
+  font-weight: 700;
+  line-height: 1.25;
+}
+
+/* Idiqlat não possui arquivo Bold fornecido; títulos 700 usam síntese do navegador. */
+@layer base {
+  :root, [data-theme="light"] {
+    --surface: var(--color-bege);
+    --ink: var(--color-azul-dk);
+    --title: var(--color-azul);
+    --focus: var(--color-azul-dk);
+  }
+  [data-theme="blue"] {
+    --surface: var(--color-azul-dk);
+    --ink: var(--color-bege);
+    --title: var(--color-bege);
+    --focus: var(--color-bege);
+  }
+  :root { font-family: var(--font-sans); color: var(--ink); background: var(--surface); }
+  body { min-width: 280px; }
+  button, summary { cursor: pointer; }
+  button:disabled { cursor: default; opacity: .6; }
+  :focus-visible { outline: 3px solid var(--focus); outline-offset: 5px; }
+  progress::-webkit-progress-bar { background: var(--color-bege-dk); }
+  progress::-webkit-progress-value { background: var(--color-verde); }
+  progress::-moz-progress-bar { background: var(--color-verde); }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { transition: none !important; scroll-behavior: auto !important; }
+  }
+}
