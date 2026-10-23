@@ -65,9 +65,9 @@ try {
   await send('Input.dispatchKeyEvent', { type: 'keyDown', key: ' ', code: 'Space', windowsVirtualKeyCode: 32 })
   await send('Input.dispatchKeyEvent', { type: 'keyUp', key: ' ', code: 'Space', windowsVirtualKeyCode: 32 })
   await new Promise(resolve => setTimeout(resolve, 100)); assert.equal(await marked(), 1, 'Teclado Space')
-  await click('input[value=blue]')
+  assert.equal(await evaluate('document.querySelectorAll("input[name=theme]").length'), 0)
   await reload()
-  assert.equal(await evaluate('document.querySelector(".bingo-page").dataset.theme'), 'blue')
+  assert.equal(await evaluate('getComputedStyle(document.querySelector(".bingo-page")).backgroundColor'), 'rgb(33, 55, 89)')
   await evaluate('window.confirm = () => false; document.querySelectorAll(".actions button")[2].click()')
   assert.equal(await marked(), 1, 'Cancelar reset')
   await evaluate('window.confirm = () => true; document.querySelectorAll(".actions button")[2].click()')
@@ -101,8 +101,7 @@ try {
     }
   }
   assert.ok(headingSizes[0].every((size, i) => size < headingSizes.at(-1)[i]), 'Títulos responsivos')
-  for (const theme of ['light', 'blue']) {
-    await click(`input[value=${theme}]`)
+  for (const theme of ['blue']) {
     assert.equal(await evaluate('[...document.querySelectorAll(".bingo-export .bingo-cell")].every(e => e.scrollHeight <= e.clientHeight && e.lastElementChild.getBoundingClientRect().bottom <= e.getBoundingClientRect().bottom - 2)'), true, 'Conteúdo cabe nas células exportadas')
     assert.equal(await evaluate('[...document.querySelectorAll("img.cell-symbol")].every(img => img.complete && img.naturalWidth === 275 && img.naturalHeight === 299 && Math.abs(img.getBoundingClientRect().width / img.getBoundingClientRect().height - 275 / 299) < 0.01 && img.alt === "")'), true, 'Brasão original carregado, proporcional e decorativo')
     assert.deepEqual(await evaluate('(() => { const el = document.querySelector(".bingo-export"); const css = getComputedStyle(el); return [el.offsetWidth, el.offsetHeight, parseFloat(css.paddingTop), parseFloat(css.paddingBottom)] })()'), [1080, 1920, 250, 250], 'Dimensões e margens da composição')
@@ -143,5 +142,5 @@ try {
   await click('button.bingo-cell'); assert.equal(await marked(), 1)
   assert.match(await evaluate('document.querySelector("[role=alert]").textContent'), /não permitiu salvar/)
   assert.deepEqual(errors, [])
-  console.log('PASS: seleção, teclado, persistência, tema, reset, conclusão, responsividade, PNG claro/azul, dados inválidos e armazenamento bloqueado. Sem exceções JS.')
+  console.log('PASS: seleção, teclado, persistência, tema azul fixo, reset, conclusão, responsividade, PNG azul, dados inválidos e armazenamento bloqueado. Sem exceções JS.')
 } finally { ws.close() }

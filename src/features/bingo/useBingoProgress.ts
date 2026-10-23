@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { activities } from './activities'
 import { initialProgress, parseProgress, serializeProgress, STORAGE_KEY, toggleActivity } from './progress'
-import type { Progress, Theme } from './progress'
+import type { Progress } from './progress'
 
 function load() {
   try {
@@ -22,7 +22,6 @@ export function useBingoProgress() {
   return {
     ...state.progress, warning: state.warning,
     toggle: (id: string) => commit({ ...state.progress, selected: toggleActivity(state.progress.selected, id) }),
-    setTheme: (theme: Theme) => commit({ ...state.progress, theme }),
     reset: () => commit({ ...state.progress, selected: [] }),
   }
 }

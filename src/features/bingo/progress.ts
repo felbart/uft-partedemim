@@ -1,7 +1,6 @@
 export const STORAGE_KEY = 'uft-parte-de-mim:bingo:v1'
-export type Theme = 'light' | 'blue'
-export type Progress = { selected: string[]; theme: Theme }
-export const initialProgress: Progress = { selected: [], theme: 'light' }
+export type Progress = { selected: string[] }
+export const initialProgress: Progress = { selected: [] }
 
 export function parseProgress(raw: string | null, validIds: readonly string[]): Progress {
   if (!raw) return initialProgress
@@ -11,7 +10,6 @@ export function parseProgress(raw: string | null, validIds: readonly string[]): 
   if (value.version !== 1 || !Array.isArray(value.selected)) throw new Error('Versão inválida')
   return {
     selected: [...new Set(value.selected.filter((id): id is string => typeof id === 'string' && validIds.includes(id)))],
-    theme: value.theme === 'blue' ? 'blue' : 'light',
   }
 }
 

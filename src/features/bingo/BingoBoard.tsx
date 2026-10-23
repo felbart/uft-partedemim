@@ -20,7 +20,7 @@ const layouts = {
     check: 'size-5.5',
   },
 } as const
-const cellClasses = 'bingo-cell relative flex min-w-0 flex-col items-center justify-end border-2 border-azul bg-bege-lt text-azul-dk text-center transition-colors duration-150 data-[selected=true]:bg-verde data-[selected=true]:text-bege data-[selected=true]:border-selected-ink'
+const cellClasses = 'bingo-cell relative flex min-w-0 flex-col items-center justify-end border-2 border-bege-50 bg-bege-50 text-primary-900 text-center transition-colors duration-150 data-[selected=true]:bg-verde data-[selected=true]:text-bege-50 data-[selected=true]:border-verde'
 
 export function BingoBoard({ selected, onToggle, presentation = 'screen' }: Props) {
   const layout = layouts[presentation]
@@ -29,8 +29,8 @@ export function BingoBoard({ selected, onToggle, presentation = 'screen' }: Prop
       const marked = selected.includes(activity.id)
       const content = <>
         <span className={`relative w-full flex-1 ${layout.art}`} aria-hidden="true"><img className={`cell-symbol absolute top-1/2 left-1/2 block h-auto -translate-x-1/2 -translate-y-1/2 ${layout.symbol}`} src={`${import.meta.env.BASE_URL}images/${marked ? 'simbolo-brasao.svg' : 'simbolo-brasao-amarelo.svg'}`} width="275" height="299" alt="" /></span>
-        <span className={`cell-label font-sans font-semibold wrap-anywhere ${layout.label}`}>{activity.label}</span>
-        {marked && <span className="absolute top-1 right-1 flex items-center justify-center rounded-full bg-azul-dk p-1 text-bege shadow-sm" aria-hidden="true"><Check className={layout.check} strokeWidth={3} /></span>}
+        <span className={`cell-label font-heading font-bold wrap-anywhere ${layout.label}`}>{activity.label}</span>
+        {marked && <span className="absolute top-1 right-1 flex items-center justify-center rounded-full bg-bege-50 p-1 text-verde shadow-sm" aria-hidden="true"><Check className={layout.check} strokeWidth={3} /></span>}
       </>
       return onToggle
         ? <button type="button" className={`${cellClasses} ${layout.cell} hover:border-current hover:ring-1 hover:ring-current`} data-selected={marked} key={activity.id} aria-pressed={marked} aria-label={activity.label} onClick={() => onToggle(activity.id)}>{content}</button>

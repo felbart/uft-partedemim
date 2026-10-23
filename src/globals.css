@@ -33,14 +33,32 @@
 }
 
 @theme {
-  --color-bege-lt: #fdfcf7;
-  --color-bege: #fbf5de;
-  --color-bege-dk: #f5e6ac;
-  --color-azul: #3d74b6;
-  --color-azul-dk: #164d80;
+  --color-primary-50: #f3f6fc;
+  --color-primary-100: #e7edf7;
+  --color-primary-200: #c9d9ee;
+  --color-primary-300: #99b8e0;
+  --color-primary-400: #6293ce;
+  --color-primary-500: #3d74b6;
+  --color-primary-600: #2d5c9c;
+  --color-primary-700: #264a7e;
+  --color-primary-800: #234069;
+  --color-primary-900: #213759;
+  --color-primary-950: #16243b;
+
+  --color-bege-50: #fff8eb;
+  --color-bege-100: #ffecc7;
+  --color-bege-200: #ffda8a;
+  --color-bege-300: #ffca61;
+  --color-bege-400: #ffb01f;
+  --color-bege-500: #f99006;
+  --color-bege-600: #de7002;
+  --color-bege-700: #b74d06;
+  --color-bege-800: #923d0c;
+  --color-bege-900: #78340d;
+  --color-bege-950: #451b02;
+
   --color-verde: #239ba7;
-  --color-amarelo: #ffcb61;
-  --color-selected-ink: #052536;
+
   --font-heading: "Idiqlat", Georgia, serif;
   --font-sans: "Rawline", system-ui, sans-serif;
   --text-heading-1: clamp(2rem, 5vw, 3rem);
@@ -48,8 +66,8 @@
   --text-heading-3: clamp(1.5rem, 3vw, 2rem);
   --text-heading-4: clamp(1.25rem, 2.5vw, 1.5rem);
   --text-story-heading: 3.625rem;
-  --spacing-page-gutter: clamp(.75rem, 4vw, 3rem);
-  --spacing-board-gap: clamp(.5rem, 2vw, 1.125rem);
+  --spacing-page-gutter: clamp(0.75rem, 4vw, 3rem);
+  --spacing-board-gap: clamp(0.5rem, 2vw, 1.125rem);
   --spacing-story-width: 1080px;
   --spacing-story-height: 1920px;
   --spacing-story-safe: 250px;
@@ -57,7 +75,7 @@
   --container-page: 67.5rem;
 }
 
-/* Aliases semânticos dependem do ancestral data-theme, sem duplicar a paleta. */
+/* Cores semânticas do bingo, com fundo azul fixo. */
 @theme inline {
   --color-surface: var(--surface);
   --color-ink: var(--ink);
@@ -92,27 +110,48 @@
 
 /* Idiqlat não possui arquivo Bold fornecido; títulos 700 usam síntese do navegador. */
 @layer base {
-  :root, [data-theme="light"] {
-    --surface: var(--color-bege);
-    --ink: var(--color-azul-dk);
-    --title: var(--color-azul);
-    --focus: var(--color-azul-dk);
+  :root {
+    color-scheme: dark;
+    --surface: var(--color-primary-900);
+    --ink: var(--color-bege-50);
+    --title: var(--color-bege-50);
+    --focus: var(--color-bege-300);
   }
-  [data-theme="blue"] {
-    --surface: var(--color-azul-dk);
-    --ink: var(--color-bege);
-    --title: var(--color-bege);
-    --focus: var(--color-bege);
+  :root {
+    font-family: var(--font-sans);
+    color: var(--ink);
+    background: var(--surface);
   }
-  :root { font-family: var(--font-sans); color: var(--ink); background: var(--surface); }
-  body { min-width: 280px; }
-  button, summary { cursor: pointer; }
-  button:disabled { cursor: default; opacity: .6; }
-  :focus-visible { outline: 3px solid var(--focus); outline-offset: 5px; }
-  progress::-webkit-progress-bar { background: var(--color-bege-dk); }
-  progress::-webkit-progress-value { background: var(--color-verde); }
-  progress::-moz-progress-bar { background: var(--color-verde); }
+  body {
+    min-width: 280px;
+  }
+  button,
+  summary {
+    cursor: pointer;
+  }
+  button:disabled {
+    cursor: default;
+    opacity: 0.6;
+  }
+  :focus-visible {
+    outline: 3px solid var(--focus);
+    outline-offset: 5px;
+  }
+  progress::-webkit-progress-bar {
+    background: var(--color-primary-950);
+  }
+  progress::-webkit-progress-value {
+    background: var(--color-bege-300);
+  }
+  progress::-moz-progress-bar {
+    background: var(--color-bege-300);
+  }
   @media (prefers-reduced-motion: reduce) {
-    *, *::before, *::after { transition: none !important; scroll-behavior: auto !important; }
+    *,
+    *::before,
+    *::after {
+      transition: none !important;
+      scroll-behavior: auto !important;
+    }
   }
 }
